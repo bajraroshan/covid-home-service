@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Grocery Item</title>
+</head>
+<body>
+    <h1>Add Grocery Item</h1>
+    <form method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
+        <label for="category">Category:</label>
+        <input type="text" name="category" required>
+        <label for="price">Price:</label>
+        <input type="number" step="0.01" name="price" required>
+        <label for="quantity">Quantity:</label>
+        <input type="number" name="quantity" required>
+        <button type="submit">Add Item</button>
+    </form>
+    <a href="{{ url_for('food_groceries') }}">Back to Grocery List</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
