@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="mb-4 text-center">Checkout</h1>
+
+        {% if cart_items %}
+            <div class="list-group mb-4">
+                {% for item in cart_items %}
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h5 class="mb-1">{{ item.grocery_item.name }}</h5>
+                                <p class="mb-1">{{ item.grocery_item.description }}</p>
+                                <p class="mb-1">Price: ${{ item.grocery_item.price }}</p>
+                                <p class="mb-1">Quantity: {{ item.quantity }}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="mb-1"><strong>Total:</strong> ${{ item.grocery_item.price * item.quantity }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="text-right">
+                <h4>Total Cost: ${{ total_cost }}</h4>
+            </div>
+
+            <!-- Checkout Button -->
+            <form method="POST" action="{{ url_for('checkout') }}">
+                <button type="submit" class="btn btn-success btn-lg btn-block mt-4">Confirm Checkout</button>
+            </form>
+        {% else %}
+            <div class="alert alert-info text-center">
+                Your cart is empty. Go back to the <a href="{{ url_for('grocery_list') }}">grocery list</a> to add items.
+            </div>
+        {% endif %}
+
+        <!-- Back to Cart Button -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('cart') }}" class="btn btn-secondary">Back to Cart</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

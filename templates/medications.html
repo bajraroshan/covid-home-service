@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Medications</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <style>
+        .back-icon {
+            font-size: 1.5rem;
+            color: #0d6efd;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .back-icon:hover {
+            color: #0a58ca;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <!-- Back to Dashboard Icon -->
+        <div class="d-flex justify-content-start mb-4">
+            <a href="{{ url_for('dashboard') }}" class="back-icon">
+                <i class="bi bi-arrow-90deg-left"></i> 
+            </a>
+        </div>
+
+        <h1 class="text-center text-primary mb-4">My Medications</h1>
+
+        <!-- Add Medication Button -->
+        <div class="text-center mb-4">
+            <a href="{{ url_for('add_medication') }}" class="btn btn-success">Add Medication</a>
+        </div>
+
+        <!-- Medications List -->
+        {% if medications %}
+            <div class="row g-4">
+                {% for med in medications %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ med.name }}</h5>
+                                <p class="card-text">
+                                    <strong>Doses per Day:</strong> {{ med.doses_per_day }}<br>
+                                    <strong>Frequency:</strong> {{ med.frequency }}<br>
+                                    <strong>Duration:</strong> {{ med.duration }} days<br>
+                                    <strong>Times:</strong> {{ med.times }}
+                                </p>
+                                <div class="d-flex">
+                                    <!-- Delete Button -->
+                                    <form action="{{ url_for('delete_medication', medication_id=med.medication_id) }}" method="post" class="flex-grow-1">
+                                        <button type="submit" class="btn btn-danger w-100">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center" role="alert">
+                You have no medications added. Click "Add Medication" to get started.
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Medication Time Alert -->
+    <script>
+        // Medication times passed from Flask
+        const medicationTimes = {{ medication_times | tojson }};
+
+        function checkMedicationAlert() {
+            const now = new Date();
+            const currentTime = now.toTimeString().slice(0, 5); // Get HH:MM format
+
+            if (medicationTimes.includes(currentTime)) {
+                alert("It's time to take your medication!");
+            }
+        }
+
+        // Check every minute
+        setInterval(checkMedicationAlert, 60000);
+
+        // Run check on page load
+        checkMedicationAlert();
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
