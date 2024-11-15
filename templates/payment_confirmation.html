@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Confirmation</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="mb-4 text-center text-primary">Payment Confirmation</h1>
+
+        <div class="card shadow-sm mx-auto" style="max-width: 500px;">
+            <div class="card-body">
+                <h5 class="card-title text-center">Confirm Your Payment</h5>
+                <p class="text-center">Your total is <strong>${{ total_cost | round(2) }}</strong>.</p>
+
+                <form method="POST" action="{{ url_for('payment_confirmation') }}">
+                    <!-- Payment details -->
+                    <div class="mb-3">
+                        <label for="card_number" class="form-label">Card Number</label>
+                        <input type="text" id="card_number" name="card_number" class="form-control" required pattern="\d{16}"
+                               placeholder="1234 5678 9012 3456" value="{{ user.credit_card_number }}">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="expiry_date" class="form-label">Expiry Date</label>
+                            <input type="text" id="expiry_date" name="expiry_date" class="form-control" required pattern="\d{2}/\d{2}"
+                                   placeholder="MM/YY" value="{{ user.expiry_date }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" id="cvv" name="cvv" class="form-control" required pattern="\d{3}" placeholder="CVV" value="">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success btn-block">Pay Now</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Back to Cart -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('cart') }}" class="btn btn-secondary">Back to Cart</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
