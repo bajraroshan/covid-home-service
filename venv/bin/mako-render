@@ -1,0 +1,10 @@
+#!/bin/sh
+'''exec' "/Users/roshanbajracharya/Documents/master of cyber security/3rd Trimester/secure software programming/group-assignment/covid-home-service/venv/bin/python" "$0" "$@"
+' '''
+# -*- coding: utf-8 -*-
+import re
+import sys
+from mako.cmd import cmdline
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(cmdline())
