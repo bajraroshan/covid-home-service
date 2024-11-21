@@ -3,6 +3,14 @@
 This repository contains the source code for a Flask-based application that provides essential home services. The features include user authentication, grocery shopping, medication tracking, SOS contact management, and home service requests. The application also integrates email notifications and uses session management for user interactions.
 
 ---
+## **Student Details**
+- Saurab Kharel (a1919868)
+- Roshan Bajracharya (a1941176)
+- Bidur Dhakal (a1908335)
+- Kanak Tanchangya(a1913488)
+- Tushar Verma(a1912159)
+- Chenfeng Zhu(a1878437)
+
 
 ## **Features**
 
